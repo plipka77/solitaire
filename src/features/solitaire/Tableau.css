@@ -1,0 +1,12 @@
+.tableau {
+  height: 100%;
+  width: 100%;
+  background-color: lightgreen;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.tableau .row {
+  padding-top: 5%;
+}

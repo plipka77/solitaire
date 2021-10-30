@@ -1,0 +1,8 @@
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.row .card {
+  margin-bottom: -125%;
+}

@@ -1,0 +1,22 @@
+.game-table {
+  background-color: lightgreen;
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.upper-table {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 20%;
+  border-bottom: 3px solid black;
+}
+
+.game-table .lower-table {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80%;
+}
