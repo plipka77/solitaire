@@ -1,23 +1,26 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Card } from "./Card";
-import { Card as CardModel, Suit } from "./solitaire.model";
+import { Stock as StockModel } from "./solitaire.model";
+import { moveCardStock, moveCardTableau, selectStock } from "./solitaireSlice";
 import "./Stock.css";
 
 export function Stock() {
-  const stockCards: CardModel[] = [
-    {
-      suit: Suit.Club,
-      value: 3
-    },
-    {
-      suit: Suit.Heart,
-      value: 4
-    }
-  ];
-    
+  const stock: StockModel = useAppSelector(selectStock);
+  const dispatch = useAppDispatch();
+
+  const moveStockCard = (position: number) => {
+    dispatch(moveCardStock(position));
+  };
+
   return (
     <div className="stock">
-      { stockCards.map(card => <div className="card"> <Card /> </div> ) }
+      <div className="stock-pile" onClick={() => moveStockCard(0)}>
+        {stock.used.length > 0 ? <Card card={stock.used.slice(-1)[0]} unclickable={true} /> : null}
+      </div>
+      <div className="stock-pile" onClick={() => moveStockCard(1)}>
+        {stock.remaining.length > 0 ? <Card card={stock.remaining.slice(-1)[0]} unclickable={true} /> : null}
+      </div>
     </div>
   );
 }

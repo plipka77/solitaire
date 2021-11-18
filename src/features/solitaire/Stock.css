@@ -4,5 +4,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
+}
+
+.stock-pile {
+  width: 4vh;
+  height: 8vh;
+  border: 0.1vh solid black;
+  border-radius: 10px;
+  margin-right: .2vh;
 }

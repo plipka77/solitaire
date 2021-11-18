@@ -1,8 +1,8 @@
 export enum Suit {
-  Spade = "SPADE",
-  Club = "CLUB",
-  Heart = "HEART",
-  Diamond = "DIAMOND",
+  Spade = "SPADES",
+  Club = "CLUBS",
+  Heart = "HEARTS",
+  Diamond = "DIAMONDS",
 }
 
 /**
@@ -14,6 +14,13 @@ export enum Suit {
 export interface Card {
   suit: Suit;
   value: number; // 1 - Ace, 11 - Jack, 12 - Queen, etc.
+  hidden: boolean;
+}
+
+export interface MoveCardPayload {
+  column: number;
+  row: number;
+  card: Card;
 }
 
 /**
@@ -26,10 +33,10 @@ export interface Gameboard {
   /**
    * The cards the user can rotate through
    *
-   * @type {Card[]}
+   * @type {Stock}
    * @memberof Gameboard
    */
-  stock: Card[];
+  stock: Stock;
 
   /**
    * The cards that have been completed and removed from the active game
@@ -60,7 +67,13 @@ export interface Gameboard {
  * @interface SolitaireState
  */
 export interface SolitaireState {
-  gameboard: Gameboard;
+  stock: Stock;
+
+  tableau: Card[][];
+
+  foundation: {
+    [suit in Suit]: Card[];
+  };
 
   /**
    * Determines whether the game has been completed.
@@ -69,4 +82,10 @@ export interface SolitaireState {
    * @memberof SolitaireState
    */
   gameover: boolean;
+}
+
+export interface Stock {
+  remaining: Card[];
+
+  used: Card[];
 }

@@ -1,31 +1,29 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Card } from "./Card";
 import "./Foundation.css"
 import { Card as CardModel, Suit } from "./solitaire.model";
+import { moveCardFoundation, selectFoundation } from "./solitaireSlice";
 
 export function Foundation() {
-  const cards: CardModel[] = [
-    {
-      suit: Suit.Club,
-      value: 10
-    },
-    {
-      suit: Suit.Heart,
-      value: 8
-    },
-    {
-      suit: Suit.Spade,
-      value: 5
-    },
-    {
-      suit: Suit.Diamond,
-      value: 3
-    }
-  ]
+  const dispatch = useAppDispatch();
+  const foundation: {
+    [suit in Suit]: CardModel[]
+  } = useAppSelector(selectFoundation);
 
+  const moveFoundationCard = (suit: Suit) => {
+    if (foundation[suit] === undefined || foundation[suit].length === 0) {
+      return;
+    }
+    dispatch(moveCardFoundation(suit));
+  };
   return (
     <div className="foundation">
-      { cards.map(card => <div className="card"> <Card /> </div>) }
+      {
+        Object.values(Suit).map(suit => {
+          return <div onClick={() => moveFoundationCard(suit)} className="card-holder" key={suit.toString()}> {foundation[suit] === undefined || foundation[suit].length === 0 ? null : <Card card={foundation[suit][foundation[suit].length - 1]} unclickable={true} />}</div>
+        })
+      }
     </div>
   );
 }

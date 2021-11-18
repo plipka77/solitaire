@@ -1,8 +1,9 @@
-.row {
+.column {
   display: flex;
   flex-direction: column;
+  width: 4vh;
 }
 
-.row .card {
+.column .card {
   margin-bottom: -125%;
 }
