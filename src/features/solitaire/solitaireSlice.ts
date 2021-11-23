@@ -34,40 +34,41 @@ export const solitaireSlice = createSlice({
       state.gameover = cardsCompleted === 56;
     },
     moveCardTableau: (state, action: PayloadAction<MoveCardPayload>) => {
-      const cardFoundationPile: Card[] = state.foundation[action.payload.card.suit];
       const cardColumn: Card[] = state.tableau[action.payload.column];
-      const card: Card = action.payload.card;
+      const card: Card = cardColumn[action.payload.row];
+      const cardFoundationPile: Card[] = state.foundation[card.suit];
 
       // First check if the card can be placed in the foundation
-      if (card.value === 1) {
-        // Aces can always be placed in the pile
-        cardFoundationPile.push(card);
-        cardColumn.pop();
-        if (cardColumn.length > 0) {
-          cardColumn[cardColumn.length - 1].hidden = false;
-        }
-        return;
-      }
-      else if (cardFoundationPile !== undefined && cardFoundationPile[cardFoundationPile.length - 1]?.value === action.payload.card.value - 1) {
-        cardFoundationPile.push(action.payload.card);
-        cardColumn.pop();
-        if (cardColumn.length > 0) {
-          cardColumn[cardColumn.length - 1].hidden = false;
-        }
-        return;
-      } else {
-        // then check within the tableau
-        const tableau: Card[][] = state.tableau;
-        for (let index = 0; index < tableau.length; ++index) {
-          const column: Card[] = tableau[index];
-          if (index !== action.payload.column && isTableauDecendant(tableau[index][tableau[index].length - 1], action.payload.card)) {
-            const moveElements: Card[] = cardColumn.splice(action.payload.row);
-            column.push(...moveElements);
-            if (cardColumn.length > 0) {
-              cardColumn[cardColumn.length - 1].hidden = false;
-            }
-            return;
+      if (action.payload.row === cardColumn.length - 1) {
+        if (card.value === 1) {
+          // Aces can always be placed in the pile
+          cardFoundationPile.push(card);
+          cardColumn.pop();
+          if (cardColumn.length > 0) {
+            cardColumn[cardColumn.length - 1].hidden = false;
           }
+          return;
+        }
+        else if (cardFoundationPile !== undefined && cardFoundationPile[cardFoundationPile.length - 1]?.value === card.value - 1) {
+          cardFoundationPile.push(card);
+          cardColumn.pop();
+          if (cardColumn.length > 0) {
+            cardColumn[cardColumn.length - 1].hidden = false;
+          }
+          return;
+        }
+      }
+      // then check within the tableau
+      const tableau: Card[][] = state.tableau;
+      for (let index = 0; index < tableau.length; ++index) {
+        const column: Card[] = tableau[index];
+        if (index !== action.payload.column && isTableauDecendant(tableau[index][tableau[index].length - 1], card)) {
+          const moveElements: Card[] = cardColumn.splice(action.payload.row);
+          column.push(...moveElements);
+          if (cardColumn.length > 0) {
+            cardColumn[cardColumn.length - 1].hidden = false;
+          }
+          return;
         }
       }
     },

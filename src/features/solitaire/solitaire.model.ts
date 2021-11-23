@@ -20,7 +20,6 @@ export interface Card {
 export interface MoveCardPayload {
   column: number;
   row: number;
-  card: Card;
 }
 
 /**

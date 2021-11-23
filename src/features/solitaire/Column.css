@@ -1,9 +1,11 @@
 .column {
   display: flex;
   flex-direction: column;
-  width: 4vh;
+  align-content: flex-start;
+  width: 8vh;
 }
 
 .column .card {
-  margin-bottom: -125%;
+  margin-bottom: -138%;
+  height: 15vh;
 }

@@ -10,8 +10,8 @@ export function Card(props: { card: CardModel, columnNumber?: number, rowNumber?
   const images = require.context('./cards', true);
   const img = props.card === undefined || props.card.hidden ? images("./card_back.png").default : images(`./${getCardImageFile(props.card)}`).default;
   return (
-    <div className="card" onClick={() => { if (!props.card.hidden && props.unclickable != true) dispatch(moveCardTableau({ column: props.columnNumber || 0, row: props.rowNumber || 0, card: props.card })) }}>
-      <img src={img} alt="The Card" className="card-image" />
+    <div className="card" onClick={() => { if (!props.card.hidden && props.unclickable !== true) dispatch(moveCardTableau({ column: props.columnNumber || 0, row: props.rowNumber || 0 })) }}>
+      <img src={img} alt="The Card" className={"card-image" + (!props.card.hidden ? " visible" : "")} />
     </div>
   );
 }
