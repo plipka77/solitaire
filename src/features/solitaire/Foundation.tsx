@@ -21,7 +21,7 @@ export function Foundation() {
     <div className="foundation">
       {
         Object.values(Suit).map(suit => {
-          return <div onClick={() => moveFoundationCard(suit)} className="card-holder" key={suit.toString()}> {foundation[suit] === undefined || foundation[suit].length === 0 ? null : <Card card={foundation[suit][foundation[suit].length - 1]} unclickable={true} />}</div>
+          return <div onClick={() => moveFoundationCard(suit)} className="card-holder" key={suit.toString()}> {foundation[suit] === undefined || foundation[suit].length === 0 ? null : <Card card={foundation[suit][foundation[suit].length - 1]} expandable={foundation[suit][foundation[suit].length - 1].value !== 1} unclickable={true} />}</div>
         })
       }
     </div>

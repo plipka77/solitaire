@@ -14,13 +14,15 @@ export function Stock() {
     dispatch(moveCardStock(position));
   };
 
+
+
   return (
     <div className="stock">
-      <div className="stock-pile" onClick={() => moveStockCard(0)}>
-        {stock.used.length > 0 ? <Card card={stock.used.slice(-1)[0]} unclickable={true} /> : null}
+      <div className="stock-pile used" onClick={() => moveStockCard(0)}>
+        {stock.used.length > 0 ? <Card card={stock.used.slice(-1)[0]} expandable={true} unclickable={true} /> : null}
       </div>
-      <div className="stock-pile" onClick={() => moveStockCard(1)}>
-        {stock.remaining.length > 0 ? <Card card={stock.remaining.slice(-1)[0]} unclickable={true} /> : <Loop className="loop-icon"></Loop>}
+      <div className="stock-pile remaining" onClick={() => moveStockCard(1)}>
+        {stock.remaining.length > 0 ? <Card card={stock.remaining.slice(-1)[0]} expandable={true} unclickable={true} /> : <Loop className="loop-icon"></Loop>}
       </div>
     </div>
   );

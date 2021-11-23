@@ -31,7 +31,7 @@ export const solitaireSlice = createSlice({
         action.payload.foundation.DIAMONDS.length +
         action.payload.foundation.SPADES.length +
         action.payload.foundation.HEARTS.length;
-      state.gameover = cardsCompleted === 56;
+      state.gameover = cardsCompleted === 52;
     },
     moveCardTableau: (state, action: PayloadAction<MoveCardPayload>) => {
       const cardColumn: Card[] = state.tableau[action.payload.column];
@@ -55,6 +55,12 @@ export const solitaireSlice = createSlice({
           if (cardColumn.length > 0) {
             cardColumn[cardColumn.length - 1].hidden = false;
           }
+          const cardsCompleted: number =
+            state.foundation.CLUBS.length +
+            state.foundation.DIAMONDS.length +
+            state.foundation.SPADES.length +
+            state.foundation.HEARTS.length;
+          state.gameover = cardsCompleted === 52;
           return;
         }
       }
@@ -80,6 +86,12 @@ export const solitaireSlice = createSlice({
         const cardFoundationPile: Card[] = state.foundation[card.suit];
         if (card.value === 1 || cardFoundationPile[cardFoundationPile.length - 1]?.value === card.value - 1) {
           cardFoundationPile.push(state.stock.used.splice(state.stock.used.length - 1, 1)[0]);
+          const cardsCompleted: number =
+            state.foundation.CLUBS.length +
+            state.foundation.DIAMONDS.length +
+            state.foundation.SPADES.length +
+            state.foundation.HEARTS.length;
+          state.gameover = cardsCompleted === 52;
           return;
         }
         const tableau: Card[][] = state.tableau;
@@ -95,7 +107,7 @@ export const solitaireSlice = createSlice({
 
         // Reset stock if there are no more cards
         if (card === undefined) {
-          state.stock.remaining = state.stock.used.splice(0, state.stock.used.length).map(card => {
+          state.stock.remaining = state.stock.used.reverse().splice(0, state.stock.used.length).map(card => {
             return {
               ...card,
               hidden: true

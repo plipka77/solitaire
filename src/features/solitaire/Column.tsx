@@ -7,7 +7,7 @@ export function Column(props: { cards: CardModel[], columnNumber: number }) {
   return (
     <div className="column">
       {
-        props.cards.map((card, index) => <Card card={card} columnNumber={props.columnNumber} rowNumber={index} />)
+        props.cards.map((card, index) => <Card card={card} expandable={props.cards[index].hidden !== true} columnNumber={props.columnNumber} rowNumber={index} />)
       }
     </div>
   );

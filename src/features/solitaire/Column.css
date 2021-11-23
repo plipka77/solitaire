@@ -9,3 +9,11 @@
   margin-bottom: -138%;
   height: 15vh;
 }
+
+.hover-container {
+  transition: all .2s ease-in-out;
+}
+
+.hover-container.expanded {
+  transform: scale(1.4);
+}

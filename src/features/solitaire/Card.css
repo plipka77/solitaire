@@ -11,6 +11,6 @@
   transition: all .2s ease-in-out;
 }
 
-.card-image.visible:hover {
+.card-image.expandable:hover {
   transform: scale(1.1);
 }
