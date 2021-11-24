@@ -6,7 +6,7 @@ import "./Table.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectGameover, setGameboard } from "./solitaireSlice";
 import { createGameboard } from "./solitaire.util";
-import { Modal } from "@mui/material";
+import { VictoryModal } from "./VictoryModal";
 
 export function Table() {
   const dispatch = useAppDispatch();
@@ -24,9 +24,7 @@ export function Table() {
       <div className="lower-table">
         <Tableau />
       </div>
-      <Modal open={true}>
-        <h1>HELLO FROM MODALL</h1>
-      </Modal>
+      <VictoryModal gameover={gameover} />
     </div>
   );
 }
